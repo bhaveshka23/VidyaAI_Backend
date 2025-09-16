@@ -9,7 +9,7 @@ import random
 def send_school_id_notification(email, school_id):
     subject = "Your School ID for VidyaAI"
     message = f"Welcome to VidyaAI! Your School ID is: {school_id}"
-    sender = "bhaveshkale419@gmail.com"
+    sender = "vidyaai884@gmail.com"
     print('email sended successfully')
     send_mail(subject, message, sender, [email], fail_silently=True)
 
