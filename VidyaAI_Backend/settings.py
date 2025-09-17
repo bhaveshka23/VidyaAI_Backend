@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'vidyaAI_Bot',
     'user_authentication',
-    'corsheaders'
+    'corsheaders',
+    'vidyaAI_instantKB'
 ]
 
 REST_FRAMEWORK = {
