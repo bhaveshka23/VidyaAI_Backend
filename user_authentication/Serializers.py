@@ -9,13 +9,14 @@ class SignupSerializer(serializers.ModelSerializer):
     education = serializers.CharField()
     age = serializers.IntegerField()
     grade = serializers.CharField()
+    school = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
 
     class Meta:
         model = User
         fields = ["id", "username", "email", "password", "first_name", "last_name",
-                  "lang", "education", "age", "grade"]
+                  "lang", "education", "age", "grade","school"]
 
     def create(self,validated_data):
 
@@ -23,6 +24,7 @@ class SignupSerializer(serializers.ModelSerializer):
         education = validated_data.pop("education")
         age = validated_data.pop("age")
         grade = validated_data.pop("grade")
+        school = validated_data.pop("school")
 
         #create the user
 
@@ -39,7 +41,8 @@ class SignupSerializer(serializers.ModelSerializer):
             lang=lang,
             education=education,
             age=age,
-            grade=grade
+            grade=grade,
+            school = school
         )
         return user
 
