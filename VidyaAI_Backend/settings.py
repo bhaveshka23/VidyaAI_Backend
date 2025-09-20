@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
+import os
 from decouple import config
 
 GEMINI_API_KEY = config("GEMINI_API_KEY")
@@ -45,7 +46,9 @@ INSTALLED_APPS = [
     'vidyaAI_Bot',
     'user_authentication',
     'corsheaders',
-    'vidyaAI_instantKB'
+    'vidyaAI_instantKB',
+    'visual_aid',
+    'django_extensions'
 ]
 
 REST_FRAMEWORK = {
@@ -160,4 +163,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "vidyaai884@gmail.com"   # your Gmail
 EMAIL_HOST_PASSWORD = "nsvb lfxi eigk gznw"      # App Password (not your Gmail login)
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
