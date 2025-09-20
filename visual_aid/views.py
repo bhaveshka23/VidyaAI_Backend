@@ -11,7 +11,7 @@ import json
 
 
 genai.configure(api_key = settings.GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 
 class Visual_aid(APIView):
@@ -30,25 +30,47 @@ class Visual_aid(APIView):
             #prompt for gemini
 
             prompt = f"""
-                    You are a helpful assistant that converts teacher descriptions into clear, simple diagrams for classroom teaching.
-                    - Output: Mermaid.js flowchart code (graph TD). Do not include explanations or extra text.
-                    - Style: Minimal, blackboard-friendly, easy to read.
-                    - Constraints: 
-                      - Only include the elements mentioned in the description.
-                      - Use short, clear node names.
-                      - Show direction of process with arrows.
-                      
-                    Example Input: "Draw the water cycle with sun, evaporation, clouds, rain, and lake."
-                    Example Output:
-                        graph TD
-                          Sun --> Evaporation
-                          Evaporation --> Clouds
-                          Clouds --> Rain
-                          Rain --> Lake
-                    
-                    Now convert this description into a Mermaid.js flowchart:
-                    
-                    Description : "{question}"
+            You are a helpful assistant that converts teacher descriptions into clear, simple diagrams for classroom teaching.
+            - Output: Mermaid.js flowchart code (graph TD). Do not include explanations or extra text.
+            - Style: Minimal, blackboard-friendly, easy to read.
+            - Constraints: 
+              - If the description requests a specific process or system (like "water cycle" or "photosynthesis"), break it down into its key sequential components
+              - If the description asks to "explain" a concept, create a conceptual flowchart showing main components and relationships
+              - Use short, clear node names (2-3 words max)
+              - Show direction of process with arrows
+              - Include only essential elements mentioned or implied by the concept
+              - For broad concepts, focus on 4-8 key components to keep it simple
+
+            Example Input 1: "Draw the water cycle with sun, evaporation, clouds, rain, and lake."
+            Example Output 1:
+            graph TD
+              Sun --> Evaporation
+              Evaporation --> Clouds
+              Clouds --> Rain
+              Rain --> Lake
+              Lake --> Evaporation
+
+            Example Input 2: "Explain the water cycle"
+            Example Output 2:
+            graph TD
+              Sun[Sun Energy] --> Evaporation
+              Evaporation --> Condensation[Cloud Formation]
+              Condensation --> Precipitation[Rain/Snow]
+              Precipitation --> Collection[Rivers/Oceans]
+              Collection --> Evaporation
+
+            Example Input 3: "Show how photosynthesis works"
+            Example Output 3:
+            graph TD
+              Sunlight --> Chlorophyll
+              Water --> Chlorophyll
+              CO2[Carbon Dioxide] --> Chlorophyll
+              Chlorophyll --> Glucose
+              Chlorophyll --> Oxygen
+
+            Now convert this description into a Mermaid.js flowchart:
+
+            Description: "{question}"
             """
 
             inputs = [prompt]
