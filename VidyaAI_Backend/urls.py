@@ -26,5 +26,8 @@ urlpatterns = [
     path('api/v1/auth/' , include('user_authentication.urls')),
     path('api/v1/chat/' , include('vidyaAI_Bot.urls')),
     path('api/v1/kbmode/',include('vidyaAI_instantKB.urls')),
-    path('api/v1/visual/',include('visual_aid.urls'))
+    path('api/v1/visual/',include('visual_aid.urls')),
+    path('api/v1/worksheet/' ,include('worksheets.urls'))
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

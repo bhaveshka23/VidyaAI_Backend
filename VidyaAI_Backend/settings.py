@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'vidyaAI_instantKB',
     'visual_aid',
-    'django_extensions'
+    'django_extensions',
+    'worksheets'
 ]
 
 REST_FRAMEWORK = {
