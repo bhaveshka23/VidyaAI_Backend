@@ -8,22 +8,26 @@ class SignupSerializer(serializers.ModelSerializer):
     lang = serializers.CharField()
     education = serializers.CharField()
     age = serializers.IntegerField()
-    grade = serializers.CharField()
     school = serializers.CharField()
     password = serializers.CharField(write_only=True)
+    grades = serializers.ListField(
+        child=serializers.CharField(max_length=20),
+        required=True,
+        allow_empty=False
+    )
 
 
     class Meta:
         model = User
         fields = ["id", "username", "email", "password", "first_name", "last_name",
-                  "lang", "education", "age", "grade","school"]
+                  "lang", "education", "age", "grades","school"]
 
     def create(self,validated_data):
 
         lang = validated_data.pop("lang")
         education = validated_data.pop("education")
         age = validated_data.pop("age")
-        grade = validated_data.pop("grade")
+        grades = validated_data.pop("grades")
         school = validated_data.pop("school")
 
         #create the user
@@ -41,7 +45,7 @@ class SignupSerializer(serializers.ModelSerializer):
             lang=lang,
             education=education,
             age=age,
-            grade=grade,
+            grades=grades,
             school = school
         )
         return user
@@ -67,3 +71,28 @@ class LoginSerializer(serializers.Serializer):
             "refresh": str(refresh),
             "access": str(refresh.access_token),
         }
+
+class ProfileSerializer(serializers.ModelSerializer):
+    # bring in user fields
+    email = serializers.EmailField(source="user.email", read_only=True)
+    first_name = serializers.CharField(source="user.first_name", read_only=True)
+    last_name = serializers.CharField(source="user.last_name", read_only=True)
+    date_joined = serializers.DateTimeField(source="user.date_joined", read_only=True)
+    last_login = serializers.DateTimeField(source="user.last_login", read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = [
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "lang",
+            "education",
+            "age",
+            "grades",
+            "school",
+            "date_joined",
+            "last_login",
+        ]
+

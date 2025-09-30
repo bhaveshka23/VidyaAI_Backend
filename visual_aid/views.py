@@ -27,8 +27,6 @@ class Visual_aid(APIView):
                     status = status.HTTP_400_BAD_REQUEST
                 )
 
-            #prompt for gemini
-
             prompt = f"""
             You are a helpful assistant that converts teacher descriptions into clear, simple diagrams for classroom teaching.
             - Output: Mermaid.js flowchart code (graph TD). Do not include explanations or extra text.

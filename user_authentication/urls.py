@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import (
 )
 
 from . import views
-from .views import SignUp,Login
+from .views import SignUp,Login ,ProFile
 
 #authentication API Endpoints
 
@@ -18,5 +18,9 @@ urlpatterns = [
 
     path('signup/' , SignUp.as_view() , name='signup'),
     path('login/' , Login.as_view() , name='login'),
+
+    #profile api endpoint
+
+    path('profile/<int:id>/' ,ProFile.as_view() , name='profile')
 
 ]

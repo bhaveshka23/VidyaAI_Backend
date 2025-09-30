@@ -21,7 +21,7 @@ class Chatbot(APIView):
 
         try:
             if session_id not in chat_sessions:
-                model = genai.GenerativeModel("gemini-1.5-flash")
+                model = genai.GenerativeModel("gemini-2.5-flash")
                 chat_sessions[session_id] = model.start_chat(history=[])
 
             prompt = f"""
