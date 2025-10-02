@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'vidyaAI_instantKB',
     'visual_aid',
     'django_extensions',
-    'worksheets'
+    'worksheets',
+    'weaklyPlanner'
 ]
 
 REST_FRAMEWORK = {
