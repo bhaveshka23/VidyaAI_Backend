@@ -7,6 +7,7 @@ from .Serializers import SignupSerializer,LoginSerializer , ProfileSerializer
 import random
 from django.shortcuts import get_object_or_404
 from .models import Profile
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 # Function to send email
@@ -22,6 +23,7 @@ def generate_school_id():
     return f"vidya{random.randint(1000, 9999)}"
 
 class SignUp(APIView):
+    parser_classes = [MultiPartParser, FormParser]
     def post(self, request):
         data = request.data.copy()
 

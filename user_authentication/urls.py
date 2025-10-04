@@ -4,6 +4,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 from . import views
 from .views import SignUp,Login ,ProFile
 
@@ -24,3 +28,7 @@ urlpatterns = [
     path('profile/<int:id>/' ,ProFile.as_view() , name='profile')
 
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
