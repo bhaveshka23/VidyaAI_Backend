@@ -11,11 +11,28 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 
 # Function to send email
-def send_school_id_notification(email, school_id):
+def send_school_id_notification(email, school_id, firstname, lastname):
     subject = "Your School ID for VidyaAI"
-    message = f"Welcome to VidyaAI! Your School ID is: {school_id}"
+    message = f"""
+Dear {firstname + " "+ lastname},
+        
+Welcome to VidyaAI - Your AI-Powered Educational Assistant!
+        
+We're excited to have you join our community of educators. Your account has been successfully created and you can now access all the features of our platform.
+        
+YOUR SCHOOL ID: {school_id}
+        
+Please keep this School ID safe as it will be required for:
+- Logging into your account
+- Accessing your dashboard
+- Managing your classes and students
+- Using our AI-powered tools
+        
+Best regards,
+The VidyaAI Team
+"""
     sender = "vidyaai884@gmail.com"
-    print('email sended successfully')
+    print('Email sent successfully')
     send_mail(subject, message, sender, [email], fail_silently=True)
 
 # Function to generate school id
@@ -36,7 +53,7 @@ class SignUp(APIView):
             user = serializer.save()
 
             # Send email notification
-            send_school_id_notification(data.get("email"), school_id)
+            send_school_id_notification(data.get("email"), school_id, data.get("first_name"), data.get("last_name"))
 
             return Response(
                 {"message":"User Created Successfully",
